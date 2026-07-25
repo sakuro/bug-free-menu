@@ -18,6 +18,8 @@ return {
   },
   demolishers = {
     "vulcanus_crossing",
+    -- Key name matches the base game's own typo; do not "fix" it or the deletion in
+    -- data-final-fixes.lua silently no-ops (deleting a nonexistent table key raises no error).
     "vulcanus_punishmnent",
   },
 }
