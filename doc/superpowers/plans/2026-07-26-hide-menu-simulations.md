@@ -8,7 +8,7 @@
 
 **Tech Stack:** Factorio 2.1 data-stage Lua (`data.lua`/`data-final-fixes.lua`/`settings.lua`), `factorix` CLI for install/mod-management, `factorio.exe --dump-data` + `jq` for verification (no Lua test framework exists in this project).
 
-**Design doc:** `docs/superpowers/specs/2026-07-26-hide-menu-simulations-design.md`
+**Design doc:** `doc/superpowers/specs/2026-07-26-hide-menu-simulations-design.md`
 
 ## Global Constraints
 
@@ -305,7 +305,7 @@ Launch Factorio normally (not `--dump-data`) with `bug-free-menu` enabled and de
 
 - [ ] **Step 2: Resolve the ★-marked classification entries**
 
-From `docs/superpowers/specs/2026-07-26-hide-menu-simulations-design.md`, the entries `nauvis_artillery`, `gleba_farm_attack`, and `vulcanus_punishmnent` were classified by name/theme only, without direct scripting evidence. Since they're hidden by default, confirming them requires temporarily setting the relevant category's setting to `false` in Startup Mod Settings, restarting, and watching for that specific demo (simulations cycle through in order, so this may take a few restarts to catch the right one). If a ★ entry turns out to not show the expected creature (or an excluded entry turns out to show one), update `menu-simulation-categories.lua` and repeat Task 3's Step 5–6 verification.
+From `doc/superpowers/specs/2026-07-26-hide-menu-simulations-design.md`, the entries `nauvis_artillery`, `gleba_farm_attack`, and `vulcanus_punishmnent` were classified by name/theme only, without direct scripting evidence. Since they're hidden by default, confirming them requires temporarily setting the relevant category's setting to `false` in Startup Mod Settings, restarting, and watching for that specific demo (simulations cycle through in order, so this may take a few restarts to catch the right one). If a ★ entry turns out to not show the expected creature (or an excluded entry turns out to show one), update `menu-simulation-categories.lua` and repeat Task 3's Step 5–6 verification.
 
 - [ ] **Step 3: Confirm the "all disabled" regression case**
 
