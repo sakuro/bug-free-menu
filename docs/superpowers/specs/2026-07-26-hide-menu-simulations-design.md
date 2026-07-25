@@ -14,6 +14,18 @@ Only menu simulations added by `base`, `space-age`, and `elevated-rails` are
 classified. Simulations added by other mods are out of scope and always
 remain visible — this mod does not attempt to infer their content.
 
+## Dependencies
+
+`space-age` and `elevated-rails` are declared as optional dependencies in
+`info.json` (`? space-age >= 2.1`, `? elevated-rails >= 2.1`), documenting
+that this mod is aware of their content. They are not required: `base`
+alone is enough for the mod to load and function (with only the `biters`
+category having any effect, since all `pentapods`/`demolishers` entries
+come from `space-age`).
+
+This declaration has no effect on correctness of the filtering logic —
+see "Behavior without space-age/elevated-rails" below.
+
 ## Why a startup setting
 
 `main_menu_simulations` is a data-stage table baked into `data.raw` before
@@ -96,6 +108,32 @@ the matching keys from
 
 No changes are needed to `control.lua` or `data.lua` — this feature is
 entirely data-stage.
+
+### Behavior without space-age/elevated-rails
+
+Verified against the installed game (`data/base`, `data/space-age`,
+`data/elevated-rails`, located via `factorix path`):
+
+- All three mods add their `main_menu_simulations` entries directly in
+  their own `data.lua` (elevated-rails has no `data-updates.lua` or
+  `data-final-fixes.lua` at all). Factorio's loading is staged globally
+  across all active mods — every mod's `data.lua` stage completes before
+  any mod's `data-final-fixes.lua` stage begins — so this mod's
+  `data-final-fixes.lua` always runs after whichever of these three mods
+  are actually enabled have finished adding their entries, regardless of
+  inter-mod dependency order.
+- `base`'s `data.lua` unconditionally ensures
+  `data.raw["utility-constants"]["default"].main_menu_simulations` exists
+  (creates it as `{}` if absent). Since `base` is a mandatory dependency of
+  every mod, this table is always present by the time this mod's
+  `data-final-fixes.lua` runs.
+- Deleting a key that was never set (`simulations[name] = nil` where
+  `simulations[name]` is already `nil`) is a harmless no-op in Lua.
+
+Together, this means `menu-simulation-categories.lua` needs no
+mod-presence checks (e.g. `mods["space-age"]`): with only `base` active,
+the `pentapods`/`demolishers` entries simply don't exist in the table and
+their deletion attempts do nothing, while `biters` filtering still works.
 
 ## Testing
 
