@@ -6,6 +6,8 @@ Hides the title screen's menu simulations that feature a planet's native
 creatures — Nauvis biters/spitters/worms, Vulcanus demolishers, and Gleba
 pentapods — each togglable independently.
 
+This mod only affects the title screen. It makes no changes to gameplay.
+
 ## Settings
 
 Three startup settings (changing one requires a restart), all enabled by
