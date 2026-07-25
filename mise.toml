@@ -31,5 +31,5 @@ run = "scripts/release-github.sh"
 
 [env]
 MOD_LICENSE = "default_mit"
-MOD_CATEGORY = "no-category"
+MOD_CATEGORY = "tweaks"
 MOD_TAGS = ""
