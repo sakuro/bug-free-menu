@@ -49,40 +49,59 @@ restart to take effect — there is no alternative that avoids this.
 ## Classification
 
 Simulation names are hardcoded into a lookup table, since Factorio provides
-no metadata tagging which creatures appear in a given simulation. Names
-below were confirmed by grepping the base/Space Age simulation init/update
+no metadata tagging which creatures appear in a given simulation. An
+initial pass was made by grepping the base/Space Age simulation init/update
 scripts (in the Factorio installation's `data/base` and `data/space-age`
 directories, located via `factorix path`) for creature-creating code
-(e.g. `create_entity{name = "small-biter", ...}`). Entries marked ★ are
-plausibility-based (name/theme only, no direct scripting evidence in the
-save's init/update code — the save's binary `level.dat` was not inspected)
-and are to be corrected during in-game verification.
+(e.g. `create_entity{name = "small-biter", ...}`), but several
+simulations place creatures statically in the save's binary `level.dat`,
+invisible to that grep. The classification below was finalized by an
+exhaustive in-game audit (2026-07-26): a temporary branch
+(`verify/creature-audit`, not merged) overrode `data-final-fixes.lua` to
+show exactly one named simulation at a time, bypassing category settings,
+so every one of the 49 base/Space Age/Elevated Rails simulations not
+already confirmed by direct script evidence could be individually watched
+on the title screen.
 
 **biters** (Nauvis: biters, spitters, worms)
-- `nauvis_mining_defense`
-- `nauvis_artillery` ★
-- `nauvis_biter_base_steamrolled`
-- `nauvis_biter_base_spidertron`
-- `nauvis_biter_base_artillery`
-- `nauvis_biter_base_player_attack`
-- `nauvis_biter_base_laser_defense`
-- `nauvis_chase_player`
-- `nauvis_big_defense`
-- `nauvis_brutal_defeat`
+- `nauvis_mining_defense`, `nauvis_biter_base_steamrolled`,
+  `nauvis_biter_base_spidertron`, `nauvis_biter_base_artillery`,
+  `nauvis_biter_base_player_attack`, `nauvis_biter_base_laser_defense`,
+  `nauvis_chase_player`, `nauvis_big_defense`, `nauvis_brutal_defeat` —
+  confirmed via direct script evidence (`create_entity{name = "...-biter"
+  or "...-spitter", ...}`).
+- `nauvis_train_station` — audit-confirmed: a dead creature corpse is
+  visible in the bottom-right of the scene.
+- `nauvis_tank_building` — audit-confirmed: a live creature appears
+  (this simulation runs on the `nauvis` surface, per `space-age/data.lua`).
 
 **pentapods** (Gleba)
-- `gleba_pentapod_ponds`
-- `gleba_egg_escape`
-- `gleba_farm_attack` ★
+- `gleba_pentapod_ponds`, `gleba_egg_escape` — confirmed via direct
+  script evidence (`pentapod` in the simulation's init/update code).
+- `gleba_farm_attack` — audit-confirmed (was previously ★/unconfirmed).
+- `gleba_grotto` — audit-confirmed (previously assumed excluded; the
+  static, script-free scene actually places pentapods in the save).
 
 **demolishers** (Vulcanus)
-- `vulcanus_crossing`
-- `vulcanus_punishmnent` ★ (key name matches the base game's own typo)
+- `vulcanus_crossing` — confirmed via direct script evidence
+  (`create_entity{name = "small-demolisher", ...}`).
+- `vulcanus_punishmnent` — audit-confirmed (was previously ★/unconfirmed;
+  key name matches the base game's own typo, do not "fix" the spelling).
 
-**Explicitly excluded** (checked, no native creature involvement found):
-`nauvis_spider_ponds`, `gleba_grotto`, `gleba_agri_towers`,
-`vulcanus_lava_forge`, `vulcanus_sulfur_drop`, all Fulgora/Aquilo
-simulations, and all non-combat infrastructure demos.
+**Explicitly excluded** (audit-confirmed, no native creature involvement):
+`nauvis_solar_power_construction`, `nauvis_lab`, `nauvis_burner_city`,
+`nauvis_forest_fire`, `nauvis_oil_pumpjacks`, `nauvis_oil_refinery`,
+`nauvis_early_smelting`, `nauvis_logistic_robots`, `nauvis_nuclear_power`,
+`nauvis_train_junction`, `nauvis_uranium_processing`, `nauvis_artillery`
+(previously ★, audit showed no creature), `nauvis_spider_ponds`
+(spidertron only — not a native creature, and separately toggleable via
+the base game's own arachnophobia mode), `nauvis_ship_rails`,
+`nauvis_river_bridge`, `nauvis_t_section`, `nauvis_biolab`,
+`nauvis_power_up`, `nauvis_bus`, `nauvis_rocket_factory`,
+`gleba_agri_towers`, `vulcanus_lava_forge`, `vulcanus_sulfur_drop`,
+`platform_science`, `platform_moving`, `platform_messy_nuclear`,
+`fulgora_city_crossing`, `fulgora_recycling_hell`, `fulgora_nightfall`,
+`fulgora_race`, `aquilo_send_help`, `aquilo_starter`.
 
 ## Mod settings
 
@@ -150,13 +169,15 @@ their deletion attempts do nothing, while `biters` filtering still works.
 ## Testing
 
 Factorio menu simulations have no automated test harness; verification is
-visual. After `mise run install`:
+visual. `factorio.exe --dump-data` + `jq` can confirm the *structural*
+effect (which keys remain in `main_menu_simulations`), but not which
+simulations actually contain a creature — that requires watching the
+title screen. The full classification above was already exhaustively
+verified this way (see "Classification"). Remaining checks:
 
 - With default settings (all categories hidden): watch the title screen
   through several simulation cycles and confirm no biter/pentapod/
-  demolisher demo appears. This also resolves the ★ entries — if a
-  ★-marked demo (or an excluded one) turns out to show/not show the
-  expected creature, update `menu-simulation-categories.lua` accordingly.
+  demolisher demo appears.
 - With all three settings set to `false`: confirm the full vanilla demo
   rotation is unchanged (regression check that the mod does nothing when
   disabled).
