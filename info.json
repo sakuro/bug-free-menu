@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "title": "Bug Free Menu",
   "author": "sakuro",
-  "description": "Bug Free Menu",
+  "description": "Hides title screen demos that feature native creatures.",
   "factorio_version": "2.1",
   "dependencies": [
     "base >= 2.1",
