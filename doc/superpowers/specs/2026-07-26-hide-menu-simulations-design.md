@@ -16,12 +16,24 @@ remain visible — this mod does not attempt to infer their content.
 
 ## Dependencies
 
-`space-age` and `elevated-rails` are declared as optional dependencies in
-`info.json` (`? space-age >= 2.1`, `? elevated-rails >= 2.1`), documenting
-that this mod is aware of their content. They are not required: `base`
-alone is enough for the mod to load and function (with only the `biters`
-category having any effect, since all `pentapods`/`demolishers` entries
-come from `space-age`).
+Only `space-age` is declared as an optional dependency in `info.json`
+(`? space-age >= 2.1`), documenting that this mod is aware of its content
+(the `pentapods`/`demolishers` categories). `elevated-rails` is not
+declared separately, for two reasons:
+
+- `elevated-rails`'s own menu simulations (`nauvis_ship_rails`,
+  `nauvis_river_bridge`, `nauvis_t_section`) are not creature-related and
+  are not referenced anywhere in `menu-simulation-categories.lua` — this
+  mod has no functional interest in `elevated-rails`'s content at all.
+- `space-age` itself hard-depends on `elevated-rails`
+  (`"elevated-rails >= 2.1.0"`, required, in `space-age`'s own
+  `info.json`), so whenever `space-age` is active, `elevated-rails` is
+  guaranteed active too. A separate optional dependency on it here would
+  be redundant.
+
+`base` alone is enough for the mod to load and function (with only the
+`biters` category having any effect, since all `pentapods`/`demolishers`
+entries come from `space-age`).
 
 This declaration has no effect on correctness of the filtering logic —
 see "Behavior without space-age/elevated-rails" below.
