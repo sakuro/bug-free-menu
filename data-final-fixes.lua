@@ -2,8 +2,8 @@ local categories = require("menu-simulation-categories")
 
 local setting_names = {
   biters = "bug-free-menu-hide-biters",
-  pentapods = "bug-free-menu-hide-pentapods",
   demolishers = "bug-free-menu-hide-demolishers",
+  pentapods = "bug-free-menu-hide-pentapods",
 }
 
 local simulations = data.raw["utility-constants"]["default"].main_menu_simulations
