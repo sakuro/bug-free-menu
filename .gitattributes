@@ -1,0 +1,9 @@
+/.gitattributes export-ignore
+/.github/ export-ignore
+/.gitignore export-ignore
+/bin/ export-ignore
+/doc/ export-ignore
+/scripts/ export-ignore
+/AGENTS.md export-ignore
+/CLAUDE.md export-ignore
+/mise.toml export-ignore

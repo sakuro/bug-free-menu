@@ -1,0 +1,11 @@
+{
+  "name": "bug-free-menu",
+  "version": "0.0.1",
+  "title": "Bug Free Menu",
+  "author": "sakuro",
+  "description": "Bug Free Menu",
+  "factorio_version": "2.1",
+  "dependencies": [
+    "base >= 2.1"
+  ]
+}
