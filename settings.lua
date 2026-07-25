@@ -1,3 +1,5 @@
+local no_space_age = not mods["space-age"]
+
 data:extend({
   {
     type = "bool-setting",
@@ -14,6 +16,7 @@ data:extend({
     setting_type = "startup",
     default_value = true,
     order = "b",
+    hidden = no_space_age,
     localised_name = {"mod-setting-name.bug-free-menu-hide-demolishers"},
     localised_description = {"mod-setting-description.bug-free-menu-hide-demolishers"}
   },
@@ -23,6 +26,7 @@ data:extend({
     setting_type = "startup",
     default_value = true,
     order = "c",
+    hidden = no_space_age,
     localised_name = {"mod-setting-name.bug-free-menu-hide-pentapods"},
     localised_description = {"mod-setting-description.bug-free-menu-hide-pentapods"}
   }
