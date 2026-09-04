@@ -1,4 +1,4 @@
-local categories = require("menu-simulation-categories")
+local categories = require("lib.menu-simulation-categories")
 
 local setting_names = {
   biters = "bug-free-menu-hide-biters",
