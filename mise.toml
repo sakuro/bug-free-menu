@@ -1,7 +1,12 @@
 [tools]
-gh = "2.96.0"
+gh = "2.98.0"
 jq = "1.8.2"
-"github:sakuro/factorix" = "0.21.0"
+hk = "1.57.0"
+gitleaks = "8.30"
+"github:sakuro/factorix" = "0.23.0"
+
+[hooks]
+postinstall = 'test -n "$CI" || hk install'
 
 [settings]
 minimum_release_age = "3d"
@@ -10,6 +15,7 @@ minimum_release_age = "3d"
 includes = ["tasks"]
 
 [env]
+HK_MISE = "1"
 MOD_LICENSE = "default_mit"
 MOD_CATEGORY = "tweaks"
 MOD_TAGS = ""
