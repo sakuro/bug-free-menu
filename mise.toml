@@ -6,28 +6,8 @@ jq = "1.8.2"
 [settings]
 minimum_release_age = "3d"
 
-[tasks.build]
-description = "Build MOD archive"
-run = "scripts/build.sh"
-
-[tasks.install]
-description = "Install MOD locally"
-depends = ["build"]
-run = "scripts/install.sh"
-
-[tasks.clean]
-description = "Remove build artifacts"
-run = "scripts/clean.sh"
-
-[tasks."release:portal"]
-description = "Publish MOD to Factorio MOD Portal"
-depends = ["build"]
-run = "scripts/release-portal.sh"
-
-[tasks."release:github"]
-description = "Create GitHub Release"
-depends = ["build"]
-run = "scripts/release-github.sh"
+[task_config]
+includes = ["tasks"]
 
 [env]
 MOD_LICENSE = "default_mit"

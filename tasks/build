@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#MISE description="Build MOD archive"
 set -euo pipefail
 
 mod_name=$(jq -r .name info.json)
