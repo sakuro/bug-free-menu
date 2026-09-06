@@ -1,5 +1,6 @@
 ---------------------------------------------------------------------------------------------------
-Version: Unreleased
+Version: 0.6.0
+Date: 2026-09-06
   Minor Features:
     - Hide the Krastorio 2 menu simulation depicting a biter base artillery bombardment
 ---------------------------------------------------------------------------------------------------
