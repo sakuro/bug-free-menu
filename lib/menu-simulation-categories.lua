@@ -1,6 +1,8 @@
 return {
   biters = {
+    -- From the Krastorio2MenuSimulations mod, not the base game.
     "kr_antimatter_artillery",
+
     "nauvis_big_defense",
     "nauvis_biter_base_artillery",
     "nauvis_biter_base_laser_defense",
