@@ -2,7 +2,7 @@
 Version: Unreleased
   Compatibility:
     - Keep hiding the Vulcanus demolisher demo after Space Age corrects its internal name
-    - Require Space Age 2.1.21 or later when it is enabled
+    - Raise the minimum supported Space Age version to 2.1.21 (Space Age remains optional)
 ---------------------------------------------------------------------------------------------------
 Version: 0.6.0
 Date: 2026-09-06
